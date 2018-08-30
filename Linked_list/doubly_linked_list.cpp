@@ -8,6 +8,14 @@ struct node{
     node * next;
 };
 
+void print(node * head){
+    while(head->next != NULL){
+        std::cout<<head->value<<"\t";
+        head = head->next;
+    }
+    std::cout<<std::endl;
+}
+
 // INSERT AT THE BEGINNING LIST
 node * insert_begin(int a, node*head){
     node * temp = new node;
@@ -71,13 +79,22 @@ node * del_end(node *head){
 
 }
 
-void print(node * head){
-    while(head->next != NULL){
-        std::cout<<head->value<<"\t";
-        head = head->next;
+//SORTING DOUBLY LINKED LIST
+node *sort(node * head){
+    int tmp;
+    for (node *i = head;  i->next != NULL ; i = i->next) {
+        for (node *j = i->next; j->next != NULL ; j = j->next) {
+            if(i->value > j->value){
+                tmp = i->value;
+                i->value = j->value;
+                j->value = tmp;
+            }
+        }
     }
-    std::cout<<std::endl;
+    return head;
 }
+
+
 
 int main(){
     node * head = new node;
@@ -87,9 +104,11 @@ int main(){
         head = insert_end(a[i], head);
     }
     print(head);
-    head = del_begin(head);
+    head = sort(head);
     print(head);
-    head = del_end(head);
-    print(head);
+//    head = del_begin(head);
+//    print(head);
+//    head = del_end(head);
+//    print(head);
     return 0;
 }

@@ -3,4 +3,4 @@ project(linked_list_practice)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(linked_list_practice doubly_linked_list.cpp)
+add_executable(linked_list_practice Linked_list/doubly_linked_list.cpp)

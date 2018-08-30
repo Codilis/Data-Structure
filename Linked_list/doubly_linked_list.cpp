@@ -70,6 +70,7 @@ node * del_end(node *head){
     return temp;
 
 }
+
 void print(node * head){
     while(head->next != NULL){
         std::cout<<head->value<<"\t";

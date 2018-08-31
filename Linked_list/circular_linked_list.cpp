@@ -9,6 +9,7 @@ struct node{
     node *next;
 }*head = NULL, *tail = NULL;
 
+//INSERT NODE AT THE BEGINING OF THE LIST
 void insert_begining(int a){
     node *temp = new node;
     if (head == NULL){
@@ -22,9 +23,25 @@ void insert_begining(int a){
     temp->prev = tail;
     tail->next = temp;
     head = temp;
-
 }
 
+//INSERT NODE AT THE END OF THE LIST
+void insert_end(int a){
+    node *temp = new node;
+    if (tail == NULL){
+        head = temp;
+    }
+    if (tail != NULL){
+        tail->next = temp;
+    }
+    temp->next = head;
+    temp->value = a;
+    temp->prev = tail;
+    head->prev = temp;
+    tail = temp;
+}
+
+//PRINTS FROM STARTING
 void print_from_begin(){
     node *temp = head;
     do{
@@ -34,6 +51,7 @@ void print_from_begin(){
     std::cout<<std::endl;
 }
 
+//PRINTS FORM END
 void print_from_end(){
     node *temp = tail;
     do{
@@ -42,10 +60,11 @@ void print_from_end(){
     }while(temp != tail) ;
     std::cout<<std::endl;
 }
+
 int main(){
     int a[] = {4, 5, 9, 8, 2 ,3, 6};
     for (int i = 0; i < 7; ++i) {
-        insert_begining(a[i]);
+        insert_end(a[i]);
     }
     print_from_begin();
     print_from_end();

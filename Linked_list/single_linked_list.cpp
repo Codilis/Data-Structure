@@ -78,5 +78,6 @@ int main(){
     print(head);
     head = del_end(head);
     print(head);
+    return 0;
 
 }

@@ -7,8 +7,13 @@ struct node{
     int value;
     node * next;
 };
+struct pointers{
+    node *first;
+    node *second;
+};
 
-void print(node * head){
+// PRINTS FROM STARTING OF LIST
+void print_from_begin(node * head){
     while(head->next != NULL){
         std::cout<<head->value<<"\t";
         head = head->next;
@@ -16,9 +21,22 @@ void print(node * head){
     std::cout<<std::endl;
 }
 
+//PRINTS IN REVERSE ORDER
+void print_from_end(node * tail){
+    while (tail->prev != NULL){
+        std::cout<<tail->value<<"\t";
+        tail = tail->prev;
+    }
+    std::cout<<std::endl;
+}
+
 // INSERT AT THE BEGINNING LIST
-node * insert_begin(int a, node*head){
+pointers insert_begin(int a, node*head, node *tail){
     node * temp = new node;
+    pointers pointers1;
+    if (tail == NULL){
+        tail = temp;
+    }
     if(head != NULL){
         head->prev = temp;
     }
@@ -26,57 +44,74 @@ node * insert_begin(int a, node*head){
     temp->value = a;
     temp->next = head;
     head = temp;
-
-    return head;
+    pointers1.first = head;
+    pointers1.second = tail;
+    return pointers1;
 }
 
 //INSERT AT THE END OF LIST
-node * insert_end(int a, node*head){
+pointers insert_end(int a, node*head, node *tail){
     node *temp = new node;
+    pointers pointers1;
     if (head == NULL){
-        temp->prev = NULL;
-        temp->value = a;
-        temp->next = NULL;
         head = temp;
-        return head;
     }
-    node *temp1 = new node;
-    temp1 = head;
-    while (head->next != NULL){
-        head = head->next;
+    if (tail != NULL) {
+       tail->next = temp;
     }
+    temp->prev = tail;
     temp->value = a;
     temp->next = NULL;
-    temp->prev = head;
-    head->next = temp;
-    return temp1;
+    tail = temp;
+    pointers1.first = head;
+    pointers1.second = tail;
+    return  pointers1;
+
 
 }
 
 //DEL A NODE FROM BEGINING
-node *del_begin(node * head){
+pointers del_begin(node * head, node *tail){
+    pointers pointers1;
+    if(head == NULL){
+        tail = NULL;
+        pointers1.first = head;
+        pointers1.second = tail;
+        return  pointers1;
+    }
+    if (head->next == NULL){
+        head = tail = NULL;
+        pointers1.first = head;
+        pointers1.second = tail;
+        return  pointers1;
+    }
     head->next->prev = NULL;
     head = head->next;
-    return head;
+    pointers1.first = head;
+    pointers1.second = tail;
+    return  pointers1;
 }
 
 //DEL A NODE FROM END
-node * del_end(node *head){
-    node *temp = new node;
-    temp = head;
-    if(head == NULL){
-        return head;
-    }
-    if (head->next == NULL){
+pointers del_end(node *head, node *tail){
+    pointers pointers1;
+    if(tail == NULL){
         head = NULL;
-        return head;
+        pointers1.first = head;
+        pointers1.second = tail;
+        return  pointers1;
     }
-    while (head->next->next != NULL){
-        head = head->next;
+    if (tail->prev == NULL) {
+        head = tail = NULL;
+        pointers1.first = head;
+        pointers1.second = tail;
+        return  pointers1;
     }
-    head->next = NULL;
-    return temp;
-
+    tail->prev->next = NULL;
+    tail = tail->prev;
+    pointers1.first = head;
+    pointers1.second = tail;
+    return  pointers1;
 }
 
 //SORTING DOUBLY LINKED LIST
@@ -95,20 +130,28 @@ node *sort(node * head){
 }
 
 
-
 int main(){
     node * head = new node;
+    node * tail = new node;
+    pointers pointers1;
     head = NULL;
+    tail = NULL;
     int a[] = {3,5,8,7,6,2,1};
     for (int i = 0; i < 8; ++i) {
-        head = insert_end(a[i], head);
+        pointers1 = insert_end(a[i], head, tail);
+        head = pointers1.first;
+        tail = pointers1.second;
     }
-    print(head);
-    head = sort(head);
-    print(head);
-//    head = del_begin(head);
-//    print(head);
-//    head = del_end(head);
-//    print(head);
+    print_from_begin(head);
+//    head = sort(head);
+    print_from_begin(head);
+    pointers1 = del_begin(head, tail);
+    head = pointers1.first;
+    tail = pointers1.second;
+    print_from_begin(head);
+    pointers1 = del_end(head, tail);
+    head = pointers1.first;
+    tail = pointers1.second;
+    print_from_end(tail);
     return 0;
 }

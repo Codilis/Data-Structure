@@ -8,8 +8,46 @@ struct node{
     int value;
     node *next;
 }*head = NULL, *tail = NULL;
+
+void insert_begining(int a){
+    node *temp = new node;
+    if (head == NULL){
+        tail = temp;
+    }
+    if (head != NULL){
+        head->prev = temp;
+    }
+    temp->value = a;
+    temp->next = head;
+    temp->prev = tail;
+    tail->next = temp;
+    head = temp;
+
+}
+
+void print_from_begin(){
+    node *temp = head;
+    do{
+        std::cout<<temp->value<<"\t";
+        temp = temp->next;
+    }while(temp != head);
+    std::cout<<std::endl;
+}
+
+void print_from_end(){
+    node *temp = tail;
+    do{
+        std::cout<<temp->value<<"\t";
+        temp = temp->prev;
+    }while(temp != tail) ;
+    std::cout<<std::endl;
+}
 int main(){
     int a[] = {4, 5, 9, 8, 2 ,3, 6};
-
+    for (int i = 0; i < 7; ++i) {
+        insert_begining(a[i]);
+    }
+    print_from_begin();
+    print_from_end();
 
 }

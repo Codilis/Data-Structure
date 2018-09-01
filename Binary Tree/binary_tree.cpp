@@ -35,6 +35,22 @@ void print_preorder(node *head){
     }
 }
 
+void print_postorder(node *head){
+    if(head != NULL) {
+        print_postorder(head->left);
+        print_postorder(head->right);
+        std::cout << head->value<<"\t";
+    }
+}
+
+void print_inorder(node *head){
+    if (head != NULL) {
+        print_preorder(head->left);
+        std::cout << head->value << "\t";
+        print_preorder(head->right);
+    }
+}
+
 int main(){
     int a[] = {26, 5, 9, 6, 7, 3, 23, 78, 65, 25, 4};
     node *head = new node;
@@ -43,5 +59,9 @@ int main(){
         head = insert(a[i], head);
     }
     print_preorder(head);
+    std::cout<<std::endl;
+    print_postorder(head);
+    std::cout<<std::endl;
+    print_inorder(head);
     return 0;
 }

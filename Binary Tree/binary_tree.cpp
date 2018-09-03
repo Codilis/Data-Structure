@@ -27,6 +27,43 @@ node * insert(int a, node *head) {
     }
 }
 
+node * minValueNode(node *head){
+    node* current = head;
+
+    /* loop down to find the leftmost leaf */
+    while (current->left != NULL)
+        current = current->left;
+
+    return current;
+}
+
+node *del(int a, node *head){
+    if(head == NULL){
+        return head;
+    }
+    if(a < head->value){
+        head->left = del(a, head->left);
+    } else if(a > head->value){
+        head->right = del(a, head->right);
+    } else{
+        if(head->left == NULL){
+            node *temp = head->right;
+            free(head);
+            return  temp;
+        } else if(head->right == NULL){
+            node * temp = head->left;
+            free(head);
+            return temp;
+        }
+        node *temp = minValueNode(head->right);
+
+        head->value = temp->value;
+        head->right = del(a, head->right);
+    }
+    return head;
+
+}
+
 void print_preorder(node *head){
     if (head != NULL) {
         std::cout << head->value << "\t";

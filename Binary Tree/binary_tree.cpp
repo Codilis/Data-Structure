@@ -100,5 +100,9 @@ int main(){
     print_postorder(head);
     std::cout<<std::endl;
     print_inorder(head);
+
+    del(3, head);
+    std::cout<<std::endl;
+    print_inorder(head);
     return 0;
 }

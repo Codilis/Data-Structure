@@ -23,8 +23,8 @@ node * insert(int a, node *head) {
             head->left = insert(a, head->left);
         else
             head->right = insert(a, head->right);
-        return head;
     }
+    return head;
 }
 
 node * minValueNode(node *head){
@@ -64,6 +64,18 @@ node *del(int a, node *head){
 
 }
 
+void  print_nth_row(node *head, int n){
+    if (n == 1){
+        std::cout<<head->value<<"\t";
+    }
+    else {
+        if (head->left != NULL)
+            print_nth_row(head->left, n - 1);
+        if (head->right != NULL)
+            print_nth_row(head->right, n - 1);
+    }
+}
+
 void print_preorder(node *head){
     if (head != NULL) {
         std::cout << head->value << "\t";
@@ -96,6 +108,8 @@ int main(){
         head = insert(a[i], head);
     }
     print_preorder(head);
+    std::cout<<std::endl;
+    print_nth_row(head, 1);
     std::cout<<std::endl;
     print_postorder(head);
     std::cout<<std::endl;

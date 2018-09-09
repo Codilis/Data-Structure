@@ -20,11 +20,21 @@ int calculate_balance_factor(node *head){
 }
 
 node *right_rotate(node *head) {
-    return nullptr;
+
+    node *temp1 = head->left;
+    node *temp2 = temp1->right;
+
+    temp1->right = head;
+    head->left = temp2;
+
+    head->height = __max(head->left->height, head->right->height);
+    temp1->height = __max(temp1->left->height, temp1->right->height);
+
+    return temp1;
 }
 
 node *left_rotate(node *head) {
-    return nullptr;
+    return head;
 }
 
 node *insert(node *head, int a) {

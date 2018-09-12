@@ -26,7 +26,12 @@ node * insert(int a, node *head) {
     }
     return head;
 }
-
+int height(node * head){
+    if (head == NULL){
+        return -1;
+    }
+    return 1 + __max(height(head->left), height(head->right));
+}
 node * minValueNode(node *head){
     node* current = head;
 
@@ -107,6 +112,7 @@ int main(){
     for (int i = 0; i < 11; ++i) {
         head = insert(a[i], head);
     }
+    std::cout<<height(head)<<std::endl;
     print_preorder(head);
     std::cout<<std::endl;
     print_nth_row(head, 1);

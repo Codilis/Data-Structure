@@ -42,6 +42,19 @@ node * minValueNode(node *head){
     return current;
 }
 
+node * lowest_common_ancestor(node *head, int v1, int v2){
+    v1 = __max(v1, v2);
+    v2 = __min(v1, v2);
+    if (head->value < v1 && head->value > v2)
+        return head;
+    if (head->value > v1)
+        return lowest_common_ancestor(head->left, v1, v2);
+    if (head->value < v2)
+        return  lowest_common_ancestor(head->right, v1, v2);
+    if (head->value == v1 || head->value == v2)
+        return head;
+}
+
 node *del(int a, node *head){
     if(head == NULL){
         return head;
@@ -112,17 +125,17 @@ int main(){
     for (int i = 0; i < 11; ++i) {
         head = insert(a[i], head);
     }
-    std::cout<<height(head)<<std::endl;
+    std::cout<<"HEIGHT OF TREE IS "<<height(head)<<std::endl<<"TREE IN PRE-ORDER: ";
     print_preorder(head);
-    std::cout<<std::endl;
-    print_nth_row(head, 1);
-    std::cout<<std::endl;
+    std::cout<<std::endl<<"3rd ROW OF TREE IS: ";
+    print_nth_row(head, 3);
+    std::cout<<std::endl<<"TREE IN POST-ORDER: ";
     print_postorder(head);
-    std::cout<<std::endl;
+    std::cout<<std::endl<<"TREE IN IN-ORDER: ";
     print_inorder(head);
-
+    std::cout<<std::endl<<"LOWEST COMMON ANCESTOR IS "<<lowest_common_ancestor(head, 78, 9)->value;
     del(3, head);
-    std::cout<<std::endl;
+    std::cout<<std::endl<<"TREE AFTER DELETING VALUE 3 IN IN-ORDER: ";
     print_inorder(head);
     return 0;
 }

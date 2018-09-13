@@ -118,6 +118,18 @@ void print_inorder(node *head){
     }
 }
 
+bool chk_if_bst(node *head, int max, int min) {
+    if (head == NULL)
+        return true;
+    if (head->value > max || head->value < min)
+        return false;
+    return chk_if_bst(head->left, head->value, min) && chk_if_bst(head->right, max, head->value);
+}
+
+bool if_bst(node *head){
+    return chk_if_bst(head, INT_MAX, INT_MIN);
+}
+
 int main(){
     int a[] = {26, 5, 9, 6, 7, 3, 23, 78, 65, 25, 4};
     node *head = new node;
@@ -137,5 +149,10 @@ int main(){
     del(3, head);
     std::cout<<std::endl<<"TREE AFTER DELETING VALUE 3 IN IN-ORDER: ";
     print_inorder(head);
+    std::cout<<std::endl;
+    if (if_bst(head))
+        std::cout<<"TREE IS BST";
+    else
+        std::cout<<"TREE IS NOT BST";
     return 0;
 }

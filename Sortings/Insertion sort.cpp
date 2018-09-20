@@ -7,6 +7,20 @@
 using namespace std;
 
 void insertion_sort(int a[], int length) {
+    int j, temp;
+    for (int i = 1; i < length; i++) {
+        j = i-1;
+        temp = a[i];
+        while (j > -1 && a[j] > temp){
+            a[j + 1] = a[j];
+            j -= 1;
+        }
+        a[j+1] = temp;
+    }
+
+    for (int j = 0; j < length; ++j) {
+        cout<<a[j]<<"\t";
+    }
 
 }
 

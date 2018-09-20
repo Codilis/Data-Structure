@@ -3,4 +3,4 @@ project(linked_list_practice)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(linked_list_practice "Sortings/bubble sort.cpp")
+add_executable(linked_list_practice "Sortings/bubble sort.cpp" )
